@@ -1,0 +1,175 @@
+@use "sass:math";
+
+// Variables
+$max-width-xl: 1200px;
+$max-width-lg: 1000px;
+$max-width-md: 800px;
+$max-width-sm: 600px;
+
+$breakpoint-xl: 1400px;
+$breakpoint-lg: 1120px;
+$breakpoint-md: 740px;
+$breakpoint-sm: 500px;
+
+// Mixins
+@mixin respond-to($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin responsive-graph($max-width, $max-height, $padding: 0) {
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $padding;
+
+  .graph-container {
+    position: relative;
+    width: 100%;
+    padding-top: math.div($max-height, $max-width) * 100%;
+    overflow: hidden;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}
+
+// Styles for full-size graph
+.responsive-graph-big {
+  @include responsive-graph($max-width-xl, 800px);
+
+  @include respond-to($breakpoint-xl) {
+    @include responsive-graph($max-width-lg, 700px);
+  }
+
+  @include respond-to($breakpoint-lg) {
+    @include responsive-graph($max-width-md, 600px);
+  }
+
+  @include respond-to($breakpoint-md) {
+    @include responsive-graph($max-width-sm, 500px);
+  }
+
+  @include respond-to($breakpoint-sm) {
+    @include responsive-graph(100%, 400px, 0 15px);
+  }
+}
+
+// Styles for medium graph
+.responsive-graph-medium {
+  @include responsive-graph(600px, 600px);
+
+  @include respond-to($breakpoint-lg) {
+    @include responsive-graph(500px, 500px);
+  }
+
+  @include respond-to($breakpoint-md) {
+    @include responsive-graph(400px, 400px);
+  }
+
+  @include respond-to($breakpoint-sm) {
+    @include responsive-graph(100%, 300px, 0 10px);
+  }
+}
+
+// Styles for small graph
+.responsive-graph-small {
+  @include responsive-graph(400px, 400px);
+
+  @include respond-to($breakpoint-lg) {
+    @include responsive-graph(350px, 350px);
+  }
+
+  @include respond-to($breakpoint-md) {
+    @include responsive-graph(300px, 300px);
+  }
+
+  @include respond-to($breakpoint-sm) {
+    @include responsive-graph(90%, 250px, 0 5px);
+  }
+}
+
+@mixin responsive-iframe($max-width, $aspect-ratio, $padding: 0) {
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: $padding;
+
+  .iframe-container {
+    position: relative;
+    width: 100%;
+    padding-top: math.div(1, $aspect-ratio) * 100%;
+    overflow: hidden;
+  }
+
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+// Styles for responsive iframe
+.responsive-iframe {
+  @include responsive-iframe(
+    $max-width-xl,
+    math.div(16, 9)
+  ); // 16:9 aspect ratio
+
+  @include respond-to($breakpoint-xl) {
+    @include responsive-iframe($max-width-lg, math.div(16, 9));
+  }
+
+  @include respond-to($breakpoint-lg) {
+    @include responsive-iframe($max-width-md, math.div(16, 9));
+  }
+
+  @include respond-to($breakpoint-md) {
+    @include responsive-iframe($max-width-sm, math.div(16, 9));
+  }
+
+  @include respond-to($breakpoint-sm) {
+    @include responsive-iframe(100%, math.div(16, 9), 0 15px);
+  }
+
+  // Additional sizes
+  &.square {
+    @include responsive-iframe(
+      $max-width-md,
+      math.div(1, 1)
+    ); // 1:1 aspect ratio
+
+    @include respond-to($breakpoint-lg) {
+      @include responsive-iframe($max-width-sm, math.div(1, 1));
+    }
+
+    @include respond-to($breakpoint-sm) {
+      @include responsive-iframe(90%, math.div(1, 1), 0 10px);
+    }
+  }
+
+  &.vertical {
+    @include responsive-iframe(
+      $max-width-sm,
+      math.div(9, 16)
+    ); // 9:16 aspect ratio
+
+    @include respond-to($breakpoint-md) {
+      @include responsive-iframe(400px, math.div(9, 16));
+    }
+
+    @include respond-to($breakpoint-sm) {
+      @include responsive-iframe(80%, math.div(9, 16), 0 5px);
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@import "./color_schemes/dark";
+
+$gradient-start: $blue-200 !default;
+$gradient-end: $blue-300 !default;
+
+$color-scheme: dark !default;
+$body-background-color: $grey-dk-300 !default;
+$body-heading-color: $grey-lt-300 !default;
+$body-text-color: $grey-lt-200 !default;
+$link-color: $blue-100 !default;
+$nav-child-link-color: $grey-lt-200 !default;
+$sidebar-color: mix($blue-300, $grey-dk-300, 15%) !default;
+$base-button-color: $grey-dk-250 !default;
+$btn-primary-color: $blue-200 !default;
+$code-background-color: $grey-dk-250 !default;
+$feedback-color: darken($sidebar-color, 3%) !default;
+$table-background-color: $grey-dk-300 !default;
+$search-background-color: $grey-dk-300 !default;
+$search-result-preview-color: $grey-lt-000 !default;
+
+$border-color: $grey-dk-200 !default;
+
+$body-font-family: "Helvetica", "Arial", sans-serif;
+
+// Custom additions for better dark theme
+$code-linenumber-color: $grey-dk-100 !default;
+$search-active-btn-bg: $grey-dk-250 !default;
+$nav-width: 15.5rem !default;
+$nav-list-link-color: $grey-lt-200 !default;
+$nav-list-item-height: 2.5rem !default;
